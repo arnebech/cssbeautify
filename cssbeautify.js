@@ -138,8 +138,8 @@ function cssbeautify(style, opt) {
     style = style.replace(/\r\n/g, '\n');
 
     while (index < length) {
-        ch = style.charAt(index);
-        ch2 = style.charAt(index + 1);
+        ch = style[index];
+        ch2 = style[index + 1];
         index += 1;
 
         // Inside a string literal?
@@ -199,8 +199,8 @@ function cssbeautify(style, opt) {
 
                 // After finishing a ruleset or directive statement,
                 // there should be one blank line.
-                if (str.charAt(str.length - 1) === '}' ||
-                        str.charAt(str.length - 1) === ';') {
+                if (str[str.length - 1] === '}' ||
+                        str[str.length - 1] === ';') {
 
                     formatted = str + '\n\n';
                 } else {
@@ -249,7 +249,7 @@ function cssbeautify(style, opt) {
                 str = trimRight(formatted);
 
                 // Insert blank line if necessary.
-                if (str.charAt(str.length - 1) === '}') {
+                if (str[str.length - 1] === '}') {
                     formatted = str + '\n\n';
                 } else {
                     // After block comment, keep all the linefeeds but
