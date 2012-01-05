@@ -27,7 +27,7 @@
 function cssbeautify(style, opt) {
     'use strict';
 
-    var options, index = 0, length = style.length, formatted = '',
+    var options, index = 0, length = style.length, formatted = '', formattedArray = [],
         ch, ch2, str, state, State, depth, quote, comment,
         openbracesuffix = true,
         trimRight;
@@ -55,6 +55,12 @@ function cssbeautify(style, opt) {
             (ch >= '0' && ch <= '9') ||
             '-_*.:#'.indexOf(c) >= 0;
     }
+    
+    function newFormatted() {
+        formattedArray.push(formatted);
+        formatted = '';
+    }
+
 
     function appendIndent() {
         var i;
@@ -82,6 +88,7 @@ function cssbeautify(style, opt) {
         depth -= 1;
         formatted = trimRight(formatted);
         formatted += '\n';
+        newFormatted();
         appendIndent();
         formatted += '}';
     }
@@ -382,6 +389,9 @@ function cssbeautify(style, opt) {
         // infinite loop).
         formatted += ch;
     }
+    
+    newFormatted();
+    formatted = formattedArray.join('');
 
     return formatted;
 }
